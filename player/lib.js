@@ -1,14 +1,15 @@
 /**
  * Инициализирует плеер Stories по заданным параметрам
- * @param {{target: string, 
- * slides: Array<{url: string, alt?: string}>, 
+ * @param {{
+ * target: string,
+ * slides: Array<{url: string, alt?: string, overlays?: Array<{type: string, value: string, styles?: {}}>}>,
  * delayPerSlide?: number,
  * }} params
  * Параметры инициализации:
  * 1. target - место инициализации плеера, CSS-селектор
  * 2. slides - список слайдов плеера
  * 3. delayPerSlide - как долго показывается один слайд
- * 
+ *
  * @returns {Element|null}
  */
 
@@ -44,6 +45,12 @@ function initPlayer(params) {
 
   return target.querySelector(".player");
 
+  /**
+   *
+   * @param {boolean} isFirst
+   *
+   * @returns {string}
+   */
   function generateTimelineChunk(isFirst) {
     return `
     <div class="timeline-chunk ${isFirst ? "timeline-chunk-active" : ""}">
@@ -51,15 +58,81 @@ function initPlayer(params) {
     </div>`;
   }
 
+  /**
+   *
+   * @param {{
+   * url: string,
+   * alt?: string,
+   * overlays?: Array<{type: string, value: string, styles?: {}}
+   * }} slide
+   * @param {boolean} isFirst
+   *
+   * @returns {string}
+   */
   function generatePlayerChunk(slide, isFirst) {
     return `
     <div class="player-chunk ${isFirst ? "player-chunk-active" : ""}">
       <img
         src="${slide.url}"
         alt="${slide.alt || ""}">
+        ${generateOverlayes(slide)}
     </div>`;
   }
 
+  /**
+   *
+   * @param {{
+   * url: string,
+   * overlays?: Array<{type: string, value: string, styles?: {}}>,
+   * alt?: string
+   * }} slide
+   *
+   * @returns {string}
+   */
+  function generateOverlayes(slide) {
+    if (slide.overlays === undefined) {
+      return "";
+    }
+
+    let overlayHTML = "";
+
+    for (const overlay of slide.overlays) {
+      const styles = (
+        overlay.styles !== undefined ? Object.entries(overlay.styles) : []
+      )
+        .map((style) => style.join(":"))
+        .join("; ");
+
+      overlayHTML += `
+      <div class="player-chunk-overlay" style="${styles}">${renderOverlay(
+        overlay
+      )}</div>`;
+    }
+
+    return overlayHTML;
+
+    /**
+     *
+     * @param {{type: string, value: string, styles?: {}}} overlay
+     * @returns {string}
+     */
+    function renderOverlay(overlay) {
+      if (overlay.type === "text") {
+        return overlay.value;
+      }
+
+      if (overlay.type === "img") {
+        return `<img src="${overlay.value}" alt="">`;
+      }
+
+      return "";
+    }
+  }
+
+  /**
+   *
+   * @returns {string}
+   */
   function generatrPlayerLayout() {
     return `
     <div class="player">
@@ -75,6 +148,14 @@ function initPlayer(params) {
     </div>`;
   }
 
+  /**
+   *
+   * @param {string} className
+   * @param {string} method
+   * @param {function|undefined} pred
+   *
+   * @returns {Element|null}
+   */
   function moveClass(className, method, pred) {
     const elem = target.querySelector("." + className);
     const elementSibling = elem[method];
@@ -121,6 +202,11 @@ function initPlayer(params) {
     }
   }
 
+  /**
+   *
+   * @param {number|undefined} time
+   * @param {number|undefined} step
+   */
   function runChunkSwitching(time = 2, step = 1) {
     clearInterval(timelineTimer);
 
