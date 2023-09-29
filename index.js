@@ -9,34 +9,13 @@ initPlayer({
       overlays: [
         {
           type: "text",
-          value: "Привет",
+          value: "Город в Азии",
+
+          classes: ["watercolor"],
 
           styles: {
-            color: "orange",
-            "font-size": "60px",
-            "text-shadow": "1px 1px #000",
-
-            top: "60%",
+            top: "0",
             left: "30%",
-
-            transform: "rotate(-30deg)",
-            animation: "scale 2s infinite ease-in-out",
-          },
-        },
-        {
-          type: "text",
-          value: "мир",
-
-          styles: {
-            color: "orange",
-            "font-size": "30px",
-            "text-shadow": "1px 1px #000",
-
-            bottom: "10%",
-            right: "30%",
-
-            transform: "rotate(90deg)",
-            animation: "scale 6s infinite ease-in-out",
           },
         },
       ],
@@ -44,6 +23,20 @@ initPlayer({
     {
       url: "https://images.unsplash.com/photo-1604311795833-25e1d5c128c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80",
       alt: "flower",
+
+      overlays: [
+        {
+          type: "text",
+          value: "Цветок в режиме макросъёмки",
+
+          classes: ["watercolor"],
+
+          styles: {
+            bottom: "5%",
+            left: "5%",
+          },
+        },
+      ],
     },
     {
       url: "https://images.unsplash.com/photo-1590099914662-a76f2f83b802?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80",

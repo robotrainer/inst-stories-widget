@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .player {
   width: 370px;
   margin: 0 auto;
@@ -68,6 +70,17 @@
 .player-chunk-next {
   top: 0;
   right: 0;
+}
+
+.watercolor {
+  color: white;
+  background: url("../img/black-watercolor-brush.png") no-repeat center;
+  background-size: 100% 100%;
+  text-align: center;
+  text-shadow: 1px 1px black;
+  font-size: 25px;
+  font-family: "Roboto", cursive;
+  padding: 60px 30px;
 }
 
 @keyframes scale {

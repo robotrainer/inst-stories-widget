@@ -83,7 +83,7 @@ function initPlayer(params) {
    *
    * @param {{
    * url: string,
-   * overlays?: Array<{type: string, value: string, styles?: {}}>,
+   * overlays?: Array<{type: string, value: string, classes?: Array<string> styles?: {}}>,
    * alt?: string
    * }} slide
    *
@@ -97,6 +97,8 @@ function initPlayer(params) {
     let overlayHTML = "";
 
     for (const overlay of slide.overlays) {
+      const classes = overlay.classes !== undefined ? overlay.classes.join(" ") : "";
+
       const styles = (
         overlay.styles !== undefined ? Object.entries(overlay.styles) : []
       )
@@ -104,7 +106,7 @@ function initPlayer(params) {
         .join("; ");
 
       overlayHTML += `
-      <div class="player-chunk-overlay" style="${styles}">${renderOverlay(
+      <div class="player-chunk-overlay ${classes}" style="${styles}">${renderOverlay(
         overlay
       )}</div>`;
     }
