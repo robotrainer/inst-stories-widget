@@ -1,15 +1,20 @@
-initPlayer({
+import Player from "./player/lib.js";
+
+new Player({
   target: ".my-player",
+  delayPerSlide: 5,
 
   slides: [
     {
       url: "https://images.unsplash.com/photo-1584294311015-1bda86d6824d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
       alt: "city",
 
+      filter: ["contrast(150%)", "blur(2px)"],
+
       overlays: [
         {
-          type: "text",
-          value: "Город в Азии",
+          type: "Text",
+          text: "Город в Азии",
 
           classes: ["watercolor"],
 
@@ -26,14 +31,24 @@ initPlayer({
 
       overlays: [
         {
-          type: "text",
-          value: "Цветок в режиме макросъёмки",
+          type: "Text",
+          text: "Цветок в режиме макросъёмки",
 
           classes: ["watercolor"],
 
           styles: {
             bottom: "5%",
             left: "5%",
+          },
+        },
+        {
+          type: "Question",
+          question: "Красиво?",
+          variants: ["Да", "Нет"],
+
+          styles: {
+            top: "15%",
+            left: "45%",
           },
         },
       ],
@@ -47,6 +62,4 @@ initPlayer({
       alt: "sea",
     },
   ],
-
-  delayPerSlide: 5,
 });
